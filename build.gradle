@@ -1,5 +1,6 @@
 plugins {
-    id 'java'
+    id 'application'
+    //id 'checkstyle'
 }
 
 group 'hexlet.code'
@@ -10,10 +11,19 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.google.guava:guava:30.1.1-jre'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
 test {
-    useJUnitPlatform()
+    //useJUnitPlatform()
+}
+
+application {
+    mainClass = 'hexlet.code.App'
+}
+
+compileJava {
+    options.release = 17
 }
