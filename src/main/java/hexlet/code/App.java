@@ -23,8 +23,10 @@ public class App implements Callable<String> {
     private File filePath2;
 
     @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
-    public static String format = "stylish";
-
+    private static String format = "stylish";
+    public static String getFormat() {
+        return format;
+    }
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);

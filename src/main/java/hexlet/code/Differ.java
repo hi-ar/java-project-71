@@ -2,8 +2,14 @@ package hexlet.code;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 public class Differ {
@@ -32,7 +38,7 @@ public class Differ {
             }
         }
 
-        if(App.format.equals("stylish")) {
+        if (App.getFormat().equals("stylish")) {
             return stylish(result);
         }
         return "";
@@ -41,7 +47,7 @@ public class Differ {
     private static String stylish(Map<String, String> map) {
         StringJoiner joiner = new StringJoiner("\n");
         joiner.add("{");
-        for(Map.Entry entry : map.entrySet()) {
+        for (Map.Entry entry : map.entrySet()) {
             joiner.add(entry.getKey() + ": " + entry.getValue());
         }
         joiner.add("}");
