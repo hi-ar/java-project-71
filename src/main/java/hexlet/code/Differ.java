@@ -2,7 +2,6 @@ package hexlet.code;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -14,8 +13,8 @@ import java.util.stream.Stream;
 
 public class Differ {
     public static String generate(String file1, String file2) throws IOException {
-        Map<String, String> data1 = getMap(file1);
-        Map<String, String> data2 = getMap(file2);
+        Map<String, String> data1 = getMapFromJson(file1);
+        Map<String, String> data2 = getMapFromJson(file2);
 
         Set<String> sortedKeychain = new TreeSet<>(Comparator.naturalOrder());
 
@@ -38,13 +37,10 @@ public class Differ {
             }
         }
 
-        if (App.getFormat().equals("stylish")) {
-            return stylish(result);
-        }
-        return "";
+        return App.getFormat().equals("stylish") ? getStylishString(result) : "";
     }
 
-    private static String stylish(Map<String, String> map) {
+    private static String getStylishString(Map<String, String> map) {
         StringJoiner joiner = new StringJoiner("\n");
         joiner.add("{");
         for (Map.Entry entry : map.entrySet()) {
@@ -53,8 +49,7 @@ public class Differ {
         joiner.add("}");
         return joiner.toString();
     }
-
-    private static Map<String, String> getMap(String json) throws IOException {
+    private static Map<String, String> getMapFromJson(String json) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> result = objectMapper.readValue(json, new TypeReference<Map<String, String>>() {
         });

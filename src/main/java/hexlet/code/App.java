@@ -8,7 +8,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.concurrent.Callable;
 
-
 /*
 
  */
@@ -32,7 +31,7 @@ public class App implements Callable<String> {
         System.exit(exitCode);
     }
     @Override
-    public String call() throws Exception {
+    public final String call() throws Exception {
         byte[] charsFile1 = Files.readAllBytes(filePath1.toPath());
         byte[] charsFile2 = Files.readAllBytes(filePath2.toPath());
         String strFile1 = new String(charsFile1);
