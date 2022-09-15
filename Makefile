@@ -1,11 +1,11 @@
-run-dist:
-    ./build/install/app/bin/app
+ run-dist:
+	./build/install/app/bin/app
 
-build:
+ build:
 	./gradlew build
 
-.PHONY:
-    build
-
-say-hello:
+ say-hello:
 	echo 'Hello, World!'
+
+ .PHONY:
+	build
