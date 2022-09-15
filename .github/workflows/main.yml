@@ -18,6 +18,5 @@ jobs:
       - run: make build
       - run: make say-hello
 
-
 #      - name: Publish code coverage
 #        uses: paambaati/codeclimate-action@v3.0.0
