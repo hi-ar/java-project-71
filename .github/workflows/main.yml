@@ -4,25 +4,19 @@ on:
   - pull_request
 
 jobs:
-  build-lvl2-project:
+  build:
     runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - uses: actions/setup-java@v3
-#        with:
-#          java-version: '17'
-#          distribution: 'temurin'
-#          cache: 'gradle'
-#      - run: ./gradlew build --no-daemon
-
     steps:
       - uses: actions/checkout@v2
+
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-            arguments: build
+
+      - run: make say-hello
+      - run: make build
+
+#      - name: Publish code coverage
+#        uses: paambaati/codeclimate-action@v3.0.0
