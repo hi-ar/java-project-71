@@ -15,8 +15,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - run: make say-hello
       - run: make build
+      - run: make say-hello
+
 
 #      - name: Publish code coverage
 #        uses: paambaati/codeclimate-action@v3.0.0
