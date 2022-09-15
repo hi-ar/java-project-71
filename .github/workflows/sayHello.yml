@@ -1,7 +1,0 @@
-name: hello-world
-on: push
-jobs:
-  mybuild:
-    runs-on: ubuntu-latest
-    steps: # список шагов, которые надо выполнить
-      - run: make say-hello
