@@ -20,8 +20,8 @@ jobs:
         with:
           arguments: build
 
-      - run: make build-test-linter
-      - run: make say-hello
-
+#      - run: make build-test-linter
+#      - run: make say-hello
+#
 #      - name: Publish code coverage
 #        uses: paambaati/codeclimate-action@v3.0.0
