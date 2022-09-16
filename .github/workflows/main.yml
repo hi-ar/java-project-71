@@ -15,7 +15,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - run: make build
+      - run: make build-test-linter
       - run: make say-hello
 
 #      - name: Publish code coverage
