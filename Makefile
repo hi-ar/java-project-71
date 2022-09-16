@@ -7,5 +7,8 @@
  say-hello:
 	echo 'Hello, World!'
 
+ report:
+	./gradlew jacocoTestReport
+
  .PHONY:
 	build
