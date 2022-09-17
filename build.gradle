@@ -25,8 +25,8 @@ dependencies {
         )
 }
 
-test { //916
-//     useJUnitPlatform()
+test { //917
+    useJUnitPlatform()
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
@@ -43,8 +43,8 @@ jacoco { //916
     reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
-jacocoTestReport { //916
-    //dependsOn test // tests are required to run before generating the report
+jacocoTestReport { //917
+    dependsOn test // tests are required to run before generating the report
     reports {
             xml.required = true
             //csv.required = false
