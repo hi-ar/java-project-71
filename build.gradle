@@ -36,7 +36,7 @@ test { //917
 
 jacoco { //916
     toolVersion = "0.8.8"
-    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+    //reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
 jacocoTestReport { //917
