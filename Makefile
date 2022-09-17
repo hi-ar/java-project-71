@@ -1,14 +1,33 @@
- run-dist:
-	./build/install/app/bin/app
+.DEFAULT_GOAL := build-run
 
- build-test-linter:
-	./gradlew build test checkstyleMain checkstyleTest
+clean:
+	./gradlew clean
 
- say-hello:
-	echo 'Hello, World!'
+build:
+	./gradlew clean build
 
- report:
+install:
+	./gradlew clean install
+
+run-dist:
+	./build/install/java-package/bin/java-package
+
+run:
+	./gradlew run
+
+test:
+	./gradlew test
+
+report:
 	./gradlew jacocoTestReport
 
- .PHONY:
-	build
+lint:
+	./gradlew checkstyleMain checkstyleTest
+
+update-deps:
+	./gradlew useLatestVersions
+
+
+build-run: build run
+
+.PHONY: build
