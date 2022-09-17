@@ -5,11 +5,15 @@ plugins {
     id 'com.adarshr.test-logger' version '3.2.0'
 }
 
+application {
+    mainClass = 'hexlet.code.App'
+}
+
 group 'hexlet.code'
 version '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
+compileJava {
+    options.release = 17
 }
 
 dependencies {
@@ -30,14 +34,6 @@ test { //917
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
-application {
-    mainClass = 'hexlet.code.App'
-}
-
-compileJava {
-    options.release = 17
-}
-
 jacoco { //916
     toolVersion = "0.8.8"
     reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
@@ -54,4 +50,8 @@ jacocoTestReport { //917
 
 checkstyle { //
     toolVersion '9.2.1'
+}
+
+repositories {
+    mavenCentral()
 }
