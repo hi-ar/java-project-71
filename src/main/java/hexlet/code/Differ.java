@@ -1,8 +1,5 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,31 +9,27 @@ import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 public class Differ {
-    public static String generate(String file1, String file2) throws IOException {
-        Map<String, String> data1 = getMapFromJson(file1);
-        Map<String, String> data2 = getMapFromJson(file2);
-
+    public static String generate(Map<String, String> map1, Map<String, String> map2) {
         Set<String> sortedKeychain = new TreeSet<>(Comparator.naturalOrder());
 
-        Stream.concat(data1.keySet().stream(), data2.keySet().stream())
+        Stream.concat(map1.keySet().stream(), map2.keySet().stream())
                 .forEach(sortedKeychain::add);
 
         Map<String, String> result = new LinkedHashMap<>();
 
         for (String key : sortedKeychain) {
-            if (data1.keySet().contains(key) && data2.keySet().contains(key) && data1.get(key)
-                    .equals(data2.get(key))) {
-                result.put(key, data1.get(key));
-            } else if (data1.keySet().contains(key) && data2.keySet().contains(key)) {
-                result.put("- " + key, data1.get(key));
-                result.put("+ " + key, data2.get(key));
-            } else if (data1.keySet().contains(key) && !data2.keySet().contains(key)) {
-                result.put("- " + key, data1.get(key));
+            if (map1.keySet().contains(key) && map2.keySet().contains(key) && map1.get(key)
+                    .equals(map2.get(key))) {
+                result.put(key, map1.get(key));
+            } else if (map1.keySet().contains(key) && map2.keySet().contains(key)) {
+                result.put("- " + key, map1.get(key));
+                result.put("+ " + key, map2.get(key));
+            } else if (map1.keySet().contains(key) && !map2.keySet().contains(key)) {
+                result.put("- " + key, map1.get(key));
             } else {
-                result.put("+ " + key, data2.get(key));
+                result.put("+ " + key, map2.get(key));
             }
         }
-
         return App.getFormat().equals("stylish") ? getStylishString(result) : "";
     }
 
@@ -48,11 +41,5 @@ public class Differ {
         }
         joiner.add("}");
         return joiner.toString();
-    }
-    private static Map<String, String> getMapFromJson(String json) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, String> result = objectMapper.readValue(json, new TypeReference<Map<String, String>>() {
-        });
-        return result;
     }
 }
