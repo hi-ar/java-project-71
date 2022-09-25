@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -22,6 +21,7 @@ public class ParserTest {
     }
 
     private Map<String, String> correctMap = new HashMap<>();
+    private Map<String, Object> correctMapObj = new LinkedHashMap<>();
     private Map<String, String> emptyMap = new HashMap<>();
 
     @Test
@@ -31,14 +31,26 @@ public class ParserTest {
         correctMap.put("proxy", "123.234.53.22");
         correctMap.put("timeout", "50");
 
+        Map<String, Object> nestedMap = new HashMap<>(); //924
+        nestedMap.put("nestedKey", "value");
+        nestedMap.put("isNested", true);
+
+        //correctMapObj.put("arr_chars1", List.of("a", "b", "c").toArray());
+        //correctMapObj.put("arr_numbers1", List.of(0, 1, 2).toArray());
+        correctMapObj.put("obj1", nestedMap);
+
         String json1 = "file1.json";
         String empty = "empty.json";
         String yaml1 = "file1.yml";
-        assertThat(Parser.parse(getAbsolutePaths(json1))).isEqualTo(correctMap);
-        assertThat(Parser.parse(getRelativePaths(json1))).isEqualTo(correctMap);
-        assertThat(Parser.parse(getRelativePaths(empty))).isEqualTo(emptyMap);
-        assertThat(Parser.parse(getAbsolutePaths(yaml1))).isEqualTo(correctMap);
-        assertThat(Parser.parse(getRelativePaths(yaml1))).isEqualTo(correctMap);
+        String nested1 = "wnested.json"; //with nested objects
+
+        assertThat(Parser.parse(getAbsolutePaths(nested1))).isEqualTo(correctMapObj);
+        assertThat(Parser.parse(getAbsolutePaths("file3.yml"))).isEqualTo(correctMapObj);
+//        assertThat(Parser.parse(getAbsolutePaths(json1))).isEqualTo(correctMap);
+//        assertThat(Parser.parse(getRelativePaths(json1))).isEqualTo(correctMap);
+//        assertThat(Parser.parse(getRelativePaths(empty))).isEqualTo(emptyMap);
+//        assertThat(Parser.parse(getAbsolutePaths(yaml1))).isEqualTo(correctMap);
+//        assertThat(Parser.parse(getRelativePaths(yaml1))).isEqualTo(correctMap);
     }
 
     @Test
