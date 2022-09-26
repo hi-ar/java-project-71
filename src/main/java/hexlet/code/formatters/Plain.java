@@ -1,22 +1,38 @@
 package hexlet.code.formatters;
 
-import java.util.Arrays;
+import hexlet.code.ItemData;
+
 import java.util.Map;
 import java.util.StringJoiner;
 
 public class Plain {
-    public String getFormattedString(Map<String, Object> map) {
+    public static String getFormattedString(Map<String, ItemData> diffMap) {
         StringJoiner joiner = new StringJoiner("\n");
-        for (Map.Entry entry : map.entrySet()) {
-            joiner.add("Property '" + entry.getKey() + "' : " + toString(entry.getValue())); //924 toStr что если на массиве вызывать туСтринг
+        for (Map.Entry<String, ItemData> entry : diffMap.entrySet()) {
+            if (entry.getValue().getStatus().equals("modified")) {
+                joiner.add("Property '" + entry.getKey() + "' was updated. From "
+                        + toString(entry.getValue().getFirst())
+                        + " to " + toString(entry.getValue().getLast()));
+            } else if (entry.getValue().getStatus().equals("removed")) {
+                joiner.add("Property '" + entry.getKey() + "' was removed");
+            } else if (entry.getValue().getStatus().equals("added")) {
+                joiner.add("Property '" + entry.getKey() + "' was added with value "
+                        + toString(entry.getValue().getLast()));
+            } else {
+                throw new RuntimeException(entry.getKey() + " out of without/modified/removed/added");
+            }
         }
         return joiner.toString();
     }
 
-    private static String toString(Object value) {
-        if (value.getClass().isArray()) {
-            return Arrays.toString((Object[]) value);
+    private static Object toString(Object value) {
+        if (!(value instanceof String
+                || value instanceof Integer
+                || value instanceof Boolean)) {
+            return new String("[complex value]");
+        } else if (value instanceof String) {
+            return new String("'" + value + "'");
         }
-        return value.toString();
+        return value;
     }
 }

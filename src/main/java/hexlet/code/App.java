@@ -24,10 +24,6 @@ public class App implements Callable<String> {
     @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
     private static String format = "stylish";
 
-    public static String getFormat() {
-        return format;
-    }
-
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
@@ -39,6 +35,6 @@ public class App implements Callable<String> {
     }
 
     public static String call(Path file1, Path file2) throws Exception { // для тестрирования
-        return Differ.generate(Parser.parse(file1), Parser.parse(file2));
+        return Differ.generate(Parser.parse(file1), Parser.parse(file2), format);
     }
 }

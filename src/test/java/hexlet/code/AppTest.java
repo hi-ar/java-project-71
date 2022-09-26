@@ -18,18 +18,18 @@ public class AppTest {
     }
 
     private String correctCompare = "{\n"
-            + "- follow: false\n"
-            + "host: hexlet.io\n"
-            + "- proxy: 123.234.53.22\n"
-            + "- timeout: 50\n"
-            + "+ timeout: 20\n"
-            + "+ verbose: true\n"
+            + "  - follow: false\n"
+            + "    host: hexlet.io\n"
+            + "  - proxy: 123.234.53.22\n"
+            + "  - timeout: 50\n"
+            + "  + timeout: 20\n"
+            + "  + verbose: true\n"
             + "}";
 
     private String correctCompareEmpty = "{\n"
-            + "+ host: hexlet.io\n"
-            + "+ timeout: 20\n"
-            + "+ verbose: true\n"
+            + "  + host: hexlet.io\n"
+            + "  + timeout: 20\n"
+            + "  + verbose: true\n"
             + "}";
     private String json1 = "file1.json";
     private String json2 = "file2.json";

@@ -1,24 +1,28 @@
 package hexlet.code.formatters;
 
-import java.util.Arrays;
+import hexlet.code.ItemData;
+
+
 import java.util.Map;
 import java.util.StringJoiner;
 
 public class Stylish {
-    public String getFormattedString(Map<String, Object> map) {
+    public static String getFormattedString(Map<String, ItemData> diffMap) {
         StringJoiner joiner = new StringJoiner("\n");
         joiner.add("{");
-        for (Map.Entry entry : map.entrySet()) {
-            joiner.add(entry.getKey() + ": " + toString(entry.getValue())); //924 toStr что если на массиве вызывать туСтринг
+        for (Map.Entry<String, ItemData> entry : diffMap.entrySet()) {
+            switch (entry.getValue().getStatus()) {
+                case "without" -> joiner.add("    " + entry.getKey() + ": " + entry.getValue().getLast());
+                case "modified" -> {
+                    joiner.add("  - " + entry.getKey() + ": " + entry.getValue().getFirst());
+                    joiner.add("  + " + entry.getKey() + ": " + entry.getValue().getLast());
+                }
+                case "removed" -> joiner.add("  - " + entry.getKey() + ": " + entry.getValue().getFirst());
+                case "added" -> joiner.add("  + " + entry.getKey() + ": " + entry.getValue().getLast());
+                default -> throw new RuntimeException(entry.getKey() + " out of without/modified/removed/added");
+            }
         }
         joiner.add("}");
         return joiner.toString();
-    }
-
-    private static String toString(Object value) {
-        if (value.getClass().isArray()) {
-            return Arrays.toString((Object[]) value);
-        }
-        return value.toString();
     }
 }
