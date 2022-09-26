@@ -31,10 +31,16 @@ public class App implements Callable<String> {
 
     @Override
     public final String call() throws Exception {
-        return "call(file1, file2)"; //для тестирования
+        return call(file1, file2);
     }
 
     public static String call(Path file1, Path file2) throws Exception { // для тестрирования
-        return Differ.generate(Parser.parse(file1), Parser.parse(file2), format);
+        try {
+            return Differ.generate(Parser.parse(file1), Parser.parse(file2), format);
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
+
+
 }
