@@ -19,7 +19,8 @@ public class Stylish {
                 }
                 case "removed" -> joiner.add("  - " + entry.getKey() + ": " + entry.getValue().getFirst());
                 case "added" -> joiner.add("  + " + entry.getKey() + ": " + entry.getValue().getLast());
-                default -> throw new RuntimeException(entry.getKey() + " out of without/modified/removed/added");
+                default -> throw new RuntimeException(entry.getKey()
+                        + " out of without/modified/removed/added (Stylish)");
             }
         }
         joiner.add("}");

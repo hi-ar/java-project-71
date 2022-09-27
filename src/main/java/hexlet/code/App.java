@@ -22,7 +22,7 @@ public class App implements Callable<String> {
     private Path file2;
 
     @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
-    private static String format = "stylish";
+    private String format = "stylish";
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
@@ -31,16 +31,10 @@ public class App implements Callable<String> {
 
     @Override
     public final String call() throws Exception {
-        return call(file1, file2);
-    }
-
-    public static String call(Path file1, Path file2) throws Exception { // для тестрирования
         try {
-            return Differ.generate(Parser.parse(file1), Parser.parse(file2), format);
+            return Differ.generate(file1, file2, format);
         } catch (Exception e) {
             return e.toString();
         }
     }
-
-
 }

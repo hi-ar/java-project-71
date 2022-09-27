@@ -9,7 +9,9 @@ public class Plain {
     public static String getFormattedString(Map<String, ItemData> diffMap) {
         StringJoiner joiner = new StringJoiner("\n");
         for (Map.Entry<String, ItemData> entry : diffMap.entrySet()) {
-            if (entry.getValue().getStatus().equals("modified")) {
+            if (entry.getValue().getStatus().equals("without")) {
+                continue;
+            } else if (entry.getValue().getStatus().equals("modified")) {
                 joiner.add("Property '" + entry.getKey() + "' was updated. From "
                         + toString(entry.getValue().getFirst())
                         + " to " + toString(entry.getValue().getLast()));
@@ -19,7 +21,7 @@ public class Plain {
                 joiner.add("Property '" + entry.getKey() + "' was added with value "
                         + toString(entry.getValue().getLast()));
             } else {
-                throw new RuntimeException(entry.getKey() + " out of without/modified/removed/added");
+                throw new RuntimeException(entry.getKey() + " out of without/modified/removed/added (Plain)");
             }
         }
         return joiner.toString();
