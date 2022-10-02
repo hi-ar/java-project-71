@@ -20,6 +20,7 @@ public class DifferTest {
     private String correctCompare = "{\n"
             + "  - follow: false\n"
             + "    host: hexlet.io\n"
+            + "    nully: null\n"
             + "  - proxy: 123.234.53.22\n"
             + "  - timeout: 0\n"
             + "  + timeout: 20\n"
@@ -28,6 +29,7 @@ public class DifferTest {
 
     private String correctCompareEmpty = "{\n"
             + "  + host: hexlet.io\n"
+            + "  + nully: null\n"
             + "  + timeout: 20\n"
             + "  + verbose: true\n"
             + "}";
@@ -58,7 +60,7 @@ public class DifferTest {
     void exceptionsTest() {
         //testing with wrong type
         var thrown1 = catchThrowable(() -> Differ.generate(getAbsolutePaths(helloworld), getRelativePaths(json1)));
-        assertThat(thrown1).isInstanceOf(JsonParseException.class);
+        assertThat(thrown1).isInstanceOf(RuntimeException.class);
 
         var thrown2 = catchThrowable(() -> Differ.generate(getAbsolutePaths(yaml1), null)); //null
         assertThat(thrown2).isInstanceOf(NullPointerException.class);

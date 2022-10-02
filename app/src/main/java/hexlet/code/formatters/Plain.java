@@ -30,7 +30,8 @@ public class Plain {
     private static Object toString(Object value) {
         if (!(value instanceof String
                 || value instanceof Integer
-                || value instanceof Boolean)) {
+                || value instanceof Boolean
+                || value == null)) {
             return new String("[complex value]");
         } else if (value instanceof String) {
             return new String("'" + value + "'");

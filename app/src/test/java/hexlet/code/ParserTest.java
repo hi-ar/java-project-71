@@ -31,6 +31,7 @@ public class ParserTest {
     void parserTest() throws IOException { //basic functionality
         correctMap.put("follow", false);
         correctMap.put("host", "hexlet.io");
+        correctMap.put("nully", null);
         correctMap.put("proxy", "123.234.53.22");
         correctMap.put("timeout", 0);
 
@@ -60,7 +61,7 @@ public class ParserTest {
     void exceptionsTest() {
         String helloworld = "helloworld.txt";
         var thrown1 = catchThrowable(() -> Parser.parse(getAbsolutePaths(helloworld))); //wrong type
-        assertThat(thrown1).isInstanceOf(JsonParseException.class);
+        assertThat(thrown1).isInstanceOf(RuntimeException.class);
         var thrown2 = catchThrowable(() -> Parser.parse(null)); //null
         assertThat(thrown2).isInstanceOf(NullPointerException.class);
     }

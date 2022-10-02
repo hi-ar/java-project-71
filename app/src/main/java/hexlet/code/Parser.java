@@ -17,8 +17,12 @@ public class Parser {
 
         if (fileExtension.equals("yaml") || fileExtension.equals("yml")) {
             return getMapFromYML(fileContent);
+        } else if (fileExtension.equals("json")) {
+            return getMapFromJson(fileContent);
+        } else {
+            throw new RuntimeException("wrong file extension (available json / yaml)");
         }
-        return getMapFromJson(fileContent);
+
     }
 
     private static Map<String, Object> getMapFromJson(String json) throws IOException {

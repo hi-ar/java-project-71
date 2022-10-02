@@ -1,11 +1,11 @@
 package hexlet.code;
 
-public class ItemData<F, L> {
+public class ItemData {
     private String status; //without, modified, removed, added
-    private F first;
-    private L last;
+    private Object first;
+    private Object last;
 
-    public ItemData(String statusCur, F firstObj, L lastObj) {
+    public ItemData(String statusCur, Object firstObj, Object lastObj) {
         this.status = statusCur;
         this.first = firstObj;
         this.last = lastObj;
