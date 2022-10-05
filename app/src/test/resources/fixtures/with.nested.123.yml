@@ -1,0 +1,15 @@
+Str1: alpha
+Int1: 0
+"": true
+ListInt1: [1, 3, 5]
+ListInt2:
+  - 0
+  - 2
+  - null
+ListStr1:
+  - 0
+  - null
+ListChars1: ["a", "b", null]
+obj1:
+  nestedKey: value
+  isNested: true

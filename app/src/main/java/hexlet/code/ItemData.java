@@ -1,7 +1,7 @@
 package hexlet.code;
 
 public class ItemData {
-    private String status; //without, modified, removed, added
+    private String status; //unchanged, changed, removed, added
     private Object first;
     private Object last;
 

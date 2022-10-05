@@ -1,9 +1,6 @@
-package hexlet.code;
+package hexlet.code.formatters;
 
-import hexlet.code.formatters.Json;
-import hexlet.code.formatters.Plain;
-import hexlet.code.formatters.Stylish;
-
+import hexlet.code.ItemData;
 import java.io.IOException;
 import java.util.Map;
 
@@ -13,7 +10,7 @@ public class Formatter {
             case "stylish" -> Stylish.getFormattedString(diffMap);
             case "plain" -> Plain.getFormattedString(diffMap);
             case "json" -> Json.getFormattedString(diffMap);
-            default -> throw new RuntimeException(formatName + "- No such format available (stylish/plain)");
+            default -> throw new RuntimeException(formatName + "- No such format available (stylish/plain/json)");
         };
     }
 }

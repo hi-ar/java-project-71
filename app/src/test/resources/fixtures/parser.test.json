@@ -1,0 +1,9 @@
+{
+  "obj1": {
+    "nestedKey": "value",
+    "isNested": true
+  },
+  "": null,
+  "list.of_chars": ["a", "b", "c"],
+  "0": [0, 1, 2]
+}

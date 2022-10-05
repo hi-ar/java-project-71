@@ -1,0 +1,10 @@
+Property '' was updated. From true to false
+Property '1' was added with value 1
+Property 'Int1' was removed
+Property 'ListBool1' was added with value [complex value]
+Property 'ListChars1' was removed
+Property 'ListInt2' was updated. From [complex value] to [complex value]
+Property 'ListStr1' was updated. From [complex value] to [complex value]
+Property 'Str1' was updated. From 'alpha' to 'beta'
+Property 'null' was added with value null
+Property 'obj1' was updated. From [complex value] to [complex value]

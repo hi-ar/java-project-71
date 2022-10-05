@@ -12,8 +12,8 @@ public class Stylish {
         joiner.add("{");
         for (Map.Entry<String, ItemData> entry : diffMap.entrySet()) {
             switch (entry.getValue().getStatus()) {
-                case "without" -> joiner.add("    " + entry.getKey() + ": " + entry.getValue().getLast());
-                case "modified" -> {
+                case "unchanged" -> joiner.add("    " + entry.getKey() + ": " + entry.getValue().getLast());
+                case "changed" -> {
                     joiner.add("  - " + entry.getKey() + ": " + entry.getValue().getFirst());
                     joiner.add("  + " + entry.getKey() + ": " + entry.getValue().getLast());
                 }

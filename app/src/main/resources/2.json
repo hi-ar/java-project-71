@@ -1,0 +1,14 @@
+{
+  "Str1": "beta",
+  "": false,
+  "ListInt1": [1, 3, 5],
+  "ListInt2": [0, 2, 4],
+  "ListStr1": ["0", "null"],
+  "obj1": {
+    "nestedKey": 0,
+    "isNested": "yes"
+  },
+  "null": null,
+  "ListBool1": [true, false],
+  "1": 1
+}

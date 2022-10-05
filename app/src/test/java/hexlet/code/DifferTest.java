@@ -1,10 +1,13 @@
 package hexlet.code;
 
 import org.junit.jupiter.api.Test;
+
+//import java.io.FileWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 
 public class DifferTest {
 
@@ -16,52 +19,50 @@ public class DifferTest {
         return Paths.get("src", "test", "resources", "fixtures", fileName);
     }
 
-    private String correctCompare = "{\n"
-            + "  - follow: false\n"
-            + "    host: hexlet.io\n"
-            + "    nully: null\n"
-            + "  - proxy: 123.234.53.22\n"
-            + "  - timeout: 0\n"
-            + "  + timeout: 20\n"
-            + "  + verbose: true\n"
-            + "}";
-
-    private String correctCompareEmpty = "{\n"
-            + "  + host: hexlet.io\n"
-            + "  + nully: null\n"
-            + "  + timeout: 20\n"
-            + "  + verbose: true\n"
-            + "}";
-    private String correctComparePlain1 = "Property 'follow' was removed\n"
-            + "Property 'proxy' was removed\n"
-            + "Property 'timeout' was updated. From 0 to 20\n"
-            + "Property 'verbose' was added with value true";
-
-    private String json1 = "file1.json";
-    private String json2 = "file2.json";
     private String empty = "empty.json";
-    private String yaml1 = "file1.yml";
-    private String yaml2 = "file2.yaml";
     private String helloworld = "helloworld.txt";
+    private String jsn1 = "with.nested.values.json"; //dots for checking correct file extension definition
+    private String yml1 = "with.nested.123.yml";
+    private String jsn2 = "with.nested.values-2.json";
+
     @Test
-    void appTest() throws Exception { //basic functionality, stylish
-        assertThat(Differ.generate(getAbsolutePaths(json1), getRelativePaths(json2))).isEqualTo(correctCompare);
-        assertThat(Differ.generate(getAbsolutePaths(yaml1), getRelativePaths(yaml2))).isEqualTo(correctCompare);
-        assertThat(Differ.generate(getAbsolutePaths(yaml1), getRelativePaths(json2))).isEqualTo(correctCompare);
-        assertThat(Differ.generate(getAbsolutePaths(empty), getRelativePaths(json2))).isEqualTo(correctCompareEmpty);
-        assertThat(Differ.generate(getAbsolutePaths(empty), getRelativePaths(empty))).isEqualTo("{\n}");
-    // plain
-        assertThat(Differ.generate(getAbsolutePaths(json1), getRelativePaths(yaml2), "plain"))
-                .isEqualTo(correctComparePlain1);
+    void stylishBasicTest() throws Exception {
+        //jsn absolute, jsn relative, stylish:
+        assertThat(Differ.generate(getAbsolutePaths(jsn1).toString(), getRelativePaths(jsn2).toString()))
+                .isEqualTo(Utils.getFileContent(getAbsolutePaths("compare_result_sty_1-2.txt")));
+        //yml absolute, jsn relative, stylish:
+        assertThat(Differ.generate(getAbsolutePaths(yml1).toString(), getRelativePaths(jsn2).toString()))
+                .isEqualTo(Utils.getFileContent(getAbsolutePaths("compare_result_sty_1-2.txt")));
+        //comparing with empty:
+        assertThat(Differ.generate(getAbsolutePaths(empty).toString(), getRelativePaths(jsn2).toString()))
+                .isEqualTo(Utils.getFileContent(getAbsolutePaths("compare_result_sty_empty-2.txt")));
+        assertThat(Differ.generate(getAbsolutePaths(empty).toString(), getRelativePaths(empty).toString()))
+                .isEqualTo("{\n}");
+    }
+
+    @Test
+    void plainBasicTest() throws Exception {
+        assertThat(Differ.generate(getAbsolutePaths(yml1).toString(), getRelativePaths(jsn2).toString(), "plain"))
+                .isEqualTo(Utils.getFileContent(getAbsolutePaths("compare_result_pln_1-2.txt")));
+    }
+
+    @Test
+    void jsonBasicTest() throws Exception {
+        assertThat(Differ.generate(getAbsolutePaths(yml1).toString(), getRelativePaths(jsn2).toString(), "json"))
+                .isEqualTo(Utils.getFileContent(getAbsolutePaths("compare_result_jsn_1-2.json")));
+//        FileWriter writer = new FileWriter("compare_result_jsn_1-2.json");
+//        writer.write(Differ.generate(getAbsolutePaths(yml1).toString(), getRelativePaths(jsn2).toString(), "json"));
+//        writer.close();
     }
 
     @Test
     void exceptionsTest() {
-        //testing with wrong type
-        var thrown1 = catchThrowable(() -> Differ.generate(getAbsolutePaths(helloworld), getRelativePaths(json1)));
+        //wrong extension:
+        var thrown1 = catchThrowable(() -> Differ.generate(getAbsolutePaths(helloworld).toString(),
+                getRelativePaths(jsn1).toString()));
         assertThat(thrown1).isInstanceOf(RuntimeException.class);
-
-        var thrown2 = catchThrowable(() -> Differ.generate(getAbsolutePaths(yaml1), null)); //null
+        //single instead of a pair:
+        var thrown2 = catchThrowable(() -> Differ.generate(getAbsolutePaths(yml1).toString(), null));
         assertThat(thrown2).isInstanceOf(NullPointerException.class);
     }
 }

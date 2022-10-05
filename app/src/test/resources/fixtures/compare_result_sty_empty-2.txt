@@ -1,0 +1,11 @@
+{
+  + : false
+  + 1: 1
+  + ListBool1: [true, false]
+  + ListInt1: [1, 3, 5]
+  + ListInt2: [0, 2, 4]
+  + ListStr1: [0, null]
+  + Str1: beta
+  + null: null
+  + obj1: {nestedKey=0, isNested=yes}
+}
