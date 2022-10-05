@@ -21,7 +21,7 @@ public class Plain {
                     joiner.add("Property '" + entry.getKey() + "' was removed");
                     break;
                 case "added":
-                    joiner.add("Property '" + entry.getKey() + "' was added with value "
+                    joiner.add("Property '" + entry.getKey() + "' was added with value: "
                             + toString(entry.getValue().getLast()));
                     break;
                 default:
