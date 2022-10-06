@@ -10,8 +10,8 @@ public class Parser {
         String fileExtension = Utils.getFileExtension(filePath);
 
         return switch (fileExtension) {
-            case "yaml", "yml" -> DataFromYaml.getData(fileContent);
-            case "json" -> DataFromJson.getData(fileContent);
+            case "yaml", "yml" -> YamlSupplier.getData(fileContent);
+            case "json" -> JsonSupplier.getData(fileContent);
             default -> throw new RuntimeException("wrong file extension (available json/yaml)");
         };
     }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import java.util.Map;
 
-public class DataFromYaml {
+public class YamlSupplier {
     public static Map<String, Object> getData(String yaml) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
         Map<String, Object> result = objectMapper.readValue(yaml, new TypeReference<Map<String, Object>>() {

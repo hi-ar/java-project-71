@@ -2,6 +2,7 @@ package hexlet.code.formatters;
 
 import hexlet.code.ItemData;
 
+import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
@@ -32,15 +33,11 @@ public class Plain {
     }
 
     private static Object toString(Object value) {
-        if (!(value instanceof String
-                //если объект не из перечисленных, а любой неизвестный: List, Map, Car, User (втч без .toString()
-                || value instanceof Integer
-                || value instanceof Boolean
-                || value == null)) {
+        if (value instanceof Map || value instanceof List<?>) {
             return new String("[complex value]");
         } else if (value instanceof String) {
             return new String("'" + value + "'");
         }
-        return value;
+        return String.valueOf(value);
     }
 }

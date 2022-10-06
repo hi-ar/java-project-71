@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -22,10 +23,13 @@ public class ParserTest {
     final Path getRelativePaths(String fileName) {
         return Paths.get("src", "test", "resources", "fixtures", fileName);
     }
+    private String empty = "empty.json";
+    private String json = "parser.test.json";
+    private String yml = "parser.test.yml";
     private Map<String, String> emptyMap = new HashMap<>();
-    private Map<String, Object> correctMapObj = new LinkedHashMap<>();
-    @Test
-    void parserTest() throws IOException { //basic functionality
+    private static Map<String, Object> correctMapObj = new LinkedHashMap<>();
+    @BeforeAll
+    static void beforeAll() {
         Map<String, Object> nestedMap = new HashMap<>();
         nestedMap.put("nestedKey", "value");
         nestedMap.put("isNested", true);
@@ -33,16 +37,17 @@ public class ParserTest {
         correctMapObj.put("", null);
         correctMapObj.put("list.of_chars", List.of("a", "b", "c"));
         correctMapObj.put("0", List.of(0, 1, 2));
-
-        String empty = "empty.json";
-        String json = "parser.test.json";
-        String yml = "parser.test.yml";
-
+    }
+    @Test
+    void parserTest() throws IOException { //basic functionality
         assertThat(Parser.parse(getAbsolutePaths(json))).isEqualTo(correctMapObj);
         assertThat(Parser.parse(getAbsolutePaths(yml))).isEqualTo(correctMapObj);
         assertThat(Parser.parse(getRelativePaths(empty))).isEqualTo(emptyMap);
     }
-
+    @Test
+    void dataSupplierTest() throws IOException {
+        assertThat(DataSupplier.getData(getAbsolutePaths(json).toString())).isEqualTo(correctMapObj);
+    }
     @Test
     void exceptionsTest() {
         String helloworld = "helloworld.txt";

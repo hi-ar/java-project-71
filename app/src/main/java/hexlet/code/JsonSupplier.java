@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Map;
 
-public class DataFromJson {
+public class JsonSupplier {
     public static Map<String, Object> getData(String json) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> result = objectMapper.readValue(json, new TypeReference<Map<String, Object>>() {
