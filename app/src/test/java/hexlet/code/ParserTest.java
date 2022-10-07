@@ -40,9 +40,10 @@ public class ParserTest {
     }
     @Test
     void parserTest() throws IOException { //basic functionality
-        assertThat(Parser.parse(getAbsolutePaths(json))).isEqualTo(correctMapObj);
-        assertThat(Parser.parse(getAbsolutePaths(yml))).isEqualTo(correctMapObj);
-        assertThat(Parser.parse(getRelativePaths(empty))).isEqualTo(emptyMap);
+        assertThat(DataSupplier.getData(getAbsolutePaths(json).toString())).isEqualTo(correctMapObj);
+        assertThat(DataSupplier.getData(getAbsolutePaths(json).toString())).isEqualTo(correctMapObj);
+        assertThat(DataSupplier.getData(getAbsolutePaths(yml).toString())).isEqualTo(correctMapObj);
+        assertThat(DataSupplier.getData(getRelativePaths(empty).toString())).isEqualTo(emptyMap);
     }
     @Test
     void dataSupplierTest() throws IOException {
@@ -51,9 +52,10 @@ public class ParserTest {
     @Test
     void exceptionsTest() {
         String helloworld = "helloworld.txt";
-        var thrown1 = catchThrowable(() -> Parser.parse(getAbsolutePaths(helloworld))); //wrong type
+        //wrong type
+        var thrown1 = catchThrowable(() -> DataSupplier.getData(getAbsolutePaths(helloworld).toString()));
         assertThat(thrown1).isInstanceOf(RuntimeException.class);
-        var thrown2 = catchThrowable(() -> Parser.parse(null)); //null
+        var thrown2 = catchThrowable(() -> DataSupplier.getData(null)); //null
         assertThat(thrown2).isInstanceOf(NullPointerException.class);
     }
 }

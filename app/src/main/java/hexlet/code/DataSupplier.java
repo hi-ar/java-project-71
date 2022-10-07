@@ -7,7 +7,9 @@ import java.util.Map;
 public class DataSupplier {
     public static Map<String, Object> getData(String filePath) throws IOException { //one of the options: data fom parse
         Path absolutePaths = Utils.getAbsolutePaths(filePath);
-        return Parser.parse(absolutePaths);
+        String fileContent = Utils.getFileContent(absolutePaths);
+        String fileExtension = Utils.getFileExtension(absolutePaths);
+        return Parser.parse(fileExtension, fileContent);
     }
 
 }

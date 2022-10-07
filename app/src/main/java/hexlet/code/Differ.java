@@ -14,7 +14,7 @@ public class Differ {
 
         return Formatter.getFormattedString(diffMap, format);
     }
-    public static String generate(String file1, String file2) throws IOException {
-        return generate(file1, file2, "stylish");
+    public static String generate(String file1Path, String file2Path) throws IOException {
+        return generate(file1Path, file2Path, "stylish");
     }
 }
